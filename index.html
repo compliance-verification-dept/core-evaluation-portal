@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font stack tối ưu độ hiển thị sắc nét trên Windows 11 và mọi thiết bị di động, tăng size chữ cho lứa trung niên dễ đọc -->
+    <title>Hardship Qualification Portal</title>
+    <style>
+        :root { 
+            --dark-slate: #0f172a; 
+            --secondary-gray: #475569; 
+            --border-color: #cbd5e1;
+            --interactive-blue: #1e40af;
+        }
+        
+        * { box-sizing: border-box; }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            background: #ffffff; 
+            color: var(--dark-slate); 
+            margin: 0; 
+            padding: 40px 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 85vh;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Xóa bỏ hoàn toàn khung viền và đổ bóng - Trở về dạng biểu mẫu điện tử phẳng */
+        .wrapper { 
+            max-width: 550px; 
+            width: 100%; 
+            padding: 10px;
+        }
+        
+        /* Font chữ tiêu đề nghiêm túc, đứng đắn nhưng không cứng nhắc */
+        h1 { 
+            font-size: 1.85rem; 
+            font-weight: 600;
+            letter-spacing: -0.025em;
+            line-height: 1.25; 
+            margin-top: 0; 
+            margin-bottom: 12px;
+            color: var(--dark-slate);
+        }
+        
+        /* Đoạn văn bổ trợ: Tăng size lên 16px (1rem) chuẩn công nghiệp cho mắt người lớn tuổi */
+        p { 
+            font-size: 1rem; 
+            line-height: 1.6; 
+            color: var(--secondary-gray);
+            margin-bottom: 28px;
+        }
+        
+        .step { display: none; }
+        .active { display: block; }
+        
+        /* Nút tùy chọn dạng Thanh Ngang phẳng, độ tương phản cao, khoảng cách bấm rộng rãi */
+        .btn-option { 
+            display: block; 
+            width: 100%; 
+            padding: 18px 20px; 
+            margin-bottom: 12px; 
+            background: #ffffff; 
+            border: 1px solid var(--border-color); 
+            border-radius: 6px; 
+            font-size: 1.05rem; 
+            font-weight: 500;
+            text-align: left; 
+            color: var(--dark-slate);
+            cursor: pointer; 
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+        
+        .btn-option:hover { 
+            background: #f8fafc; 
+            border-color: #94a3b8; 
+        }
+        
+        /* Nút dứt điểm hành động: Màu xanh mực thẫm cực kỳ đáng tin cậy, không lòe loẹt */
+        .btn-submit { 
+            display: block; 
+            width: 100%; 
+            padding: 18px; 
+            background: var(--interactive-blue); 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            text-align: center; 
+            text-decoration: none; 
+            cursor: pointer; 
+            margin-top: 24px; 
+        }
+        
+        .btn-submit:hover { 
+            background: #1e3a8a; 
+        }
+        
+        /* Nhãn phân loại tinh tế, không dùng màu đỏ kích động */
+        .meta-label { 
+            font-size: 0.75rem; 
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700; 
+            color: #64748b;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .loading { text-align: center; padding: 40px 20px; }
+        .spinner { 
+            border: 3px solid #f3f3f3; 
+            border-top: 3px solid var(--interactive-blue); 
+            border-radius: 50%; 
+            width: 36px; 
+            height: 36px; 
+            animation: spin 0.8s linear infinite; 
+            margin: 0 auto 20px; 
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <!-- BƯỚC 1 -->
+    <div id="step1" class="step active">
+        <span class="meta-label">Online Eligibility Wizard</span>
+        <h1>Credit Card Hardship Program Evaluation</h1>
+        <p>Please select your total outstanding unsecured debt profile (includes credit cards, department store cards, and unsecured personal loans):</p>
+        <button class="btn-option" onclick="nextStep(1, 2)">Under $5,000</button>
+        <button class="btn-option" onclick="nextStep(1, 2)">$5,000 - $10,000</button>
+        <button class="btn-option" onclick="nextStep(1, 2)">$10,000 - $20,000</button>
+        <button class="btn-option" onclick="nextStep(1, 2)">Over $20,000+</button>
+    </div>
+
+    <!-- BƯỚC 2 -->
+    <div id="step2" class="step">
+        <span class="meta-label">Accounts Status</span>
+        <h1>Current Payment Evaluation</h1>
+        <p>Are you currently experiencing difficulty maintaining the minimum monthly payments, or have any accounts already lapsed into past-due status?</p>
+        <button class="btn-option" onclick="showLoading()">Yes, currently struggling or behind</button>
+        <button class="btn-option" onclick="showLoading()">No, but high interest rates make optimization difficult</button>
+    </div>
+
+    <!-- BƯỚC 3: GIẢ LẬP TIẾN TRÌNH QUÉT CHÍNH THỐNG -->
+    <div id="loadingStep" class="step loading">
+        <div class="spinner"></div>
+        <h3 style="font-weight: 500; margin-bottom: 8px;">Verifying Database Parameters...</h3>
+        <p style="margin-bottom: 0;">Cross-referencing hardship program availability and interest mitigation criteria.</p>
+    </div>
+
+    <!-- BƯỚC CUỐI -->
+    <div id="step3" class="step">
+        <span class="meta-label" style="color: #166534;">Evaluation Result</span>
+        <h1 style="color: #14532d;">Pre-Qualification Confirmed</h1>
+        <p>Based on the submitted parameters, your profile indicates eligibility for institutional hardship assistance options designed to restructure payments and reduce compounding interest rates.</p>
+        <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 0;">To view your personalized hardship plan and connect with an authorized program administrator, please proceed to the formal verification form below:</p>
+        
+        <!-- NƠI GHIM LINK CHÂN RẾT CPA -->
+        <a id="cpa-link" href="https://www.forbes.com/advisor/credit-cards/" class="btn-submit">Continue to Verification Form</a>
+    </div>
+</div>
+
+<script>
+    function nextStep(current, next) {
+        document.getElementById('step' + current).classList.remove('active');
+        document.getElementById('step' + next).classList.add('active');
+    }
+
+    function showLoading() {
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('loadingStep').classList.add('active');
+        
+        // Giữ nguyên độ trễ 2.5 giây tạo độ chín chắn cho thuật toán giả lập
+        setTimeout(function() {
+            document.getElementById('loadingStep').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+        }, 2500);
+    }
+</script>
+
+</body>
+</html>
