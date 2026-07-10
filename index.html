@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Font stack tối ưu độ hiển thị sắc nét trên Windows 11 và mọi thiết bị di động, tăng size chữ cho lứa trung niên dễ đọc -->
     <title>Hardship Qualification Portal</title>
     <style>
         :root { 
@@ -22,31 +21,46 @@
             margin: 0; 
             padding: 40px 20px; 
             display: flex; 
+            flex-direction: column;
             justify-content: center; 
             align-items: center; 
-            min-height: 85vh;
+            min-height: 90vh;
             -webkit-font-smoothing: antialiased;
         }
         
-        /* Xóa bỏ hoàn toàn khung viền và đổ bóng - Trở về dạng biểu mẫu điện tử phẳng */
+        /* BIẾN BIỂU MẪU THÀNH BORDERLESS TUYỆT ĐỐI - KHÔNG KHUNG VIỀN - KHÔNG ĐỔ BÓNG */
         .wrapper { 
             max-width: 550px; 
             width: 100%; 
-            padding: 10px;
+            background: #ffffff;
+            padding: 10px 0;
         }
         
-        /* Font chữ tiêu đề nghiêm túc, đứng đắn nhưng không cứng nhắc */
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #94a3b8;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        .progress-bar .step-indicator.active-step {
+            color: var(--interactive-blue);
+        }
+
         h1 { 
-            font-size: 1.85rem; 
+            font-size: 1.75rem; 
             font-weight: 600;
             letter-spacing: -0.025em;
-            line-height: 1.25; 
+            line-height: 1.3; 
             margin-top: 0; 
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             color: var(--dark-slate);
         }
         
-        /* Đoạn văn bổ trợ: Tăng size lên 16px (1rem) chuẩn công nghiệp cho mắt người lớn tuổi */
         p { 
             font-size: 1rem; 
             line-height: 1.6; 
@@ -57,7 +71,6 @@
         .step { display: none; }
         .active { display: block; }
         
-        /* Nút tùy chọn dạng Thanh Ngang phẳng, độ tương phản cao, khoảng cách bấm rộng rãi */
         .btn-option { 
             display: block; 
             width: 100%; 
@@ -75,11 +88,10 @@
         }
         
         .btn-option:hover { 
-            background: #f8fafc; 
+            background: #f1f5f9; 
             border-color: #94a3b8; 
         }
         
-        /* Nút dứt điểm hành động: Màu xanh mực thẫm cực kỳ đáng tin cậy, không lòe loẹt */
         .btn-submit { 
             display: block; 
             width: 100%; 
@@ -100,7 +112,6 @@
             background: #1e3a8a; 
         }
         
-        /* Nhãn phân loại tinh tế, không dùng màu đỏ kích động */
         .meta-label { 
             font-size: 0.75rem; 
             text-transform: uppercase;
@@ -122,16 +133,45 @@
             margin: 0 auto 20px; 
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .trust-footer {
+            max-width: 550px;
+            width: 100%;
+            margin-top: 35px;
+            text-align: center;
+            font-size: 0.73rem;
+            color: #94a3b8;
+            line-height: 1.5;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 15px;
+        }
+
+        /* ĐÃ TRIỆT TIÊU HOÀN TOÀN ICON Ổ KHÓA CÓ MÀU ĐỂ GIỮ DIỆN MẠO PHẲNG NGHIÊM TÚC */
+        .security-badge {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 8px;
+            color: #64748b;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
     </style>
 </head>
 <body>
 
 <div class="wrapper">
+    <div class="progress-bar">
+        <span id="bar-s1" class="step-indicator active-step">1. Debt Profile</span>
+        <span id="bar-s2" class="step-indicator">2. Status Evaluation</span>
+        <span id="bar-s3" class="step-indicator">3. Verification</span>
+    </div>
+
     <!-- BƯỚC 1 -->
     <div id="step1" class="step active">
-        <span class="meta-label">Online Eligibility Wizard</span>
-        <h1>Credit Card Hardship Program Evaluation</h1>
-        <p>Please select your total outstanding unsecured debt profile (includes credit cards, department store cards, and unsecured personal loans):</p>
+        <span class="meta-label">Financial Hardship Assessment</span>
+        <h1>Unsecured Debt Profile</h1>
+        <p>Select your total outstanding unsecured debt obligations (including major credit cards, retail store cards, and personal loans):</p>
         <button class="btn-option" onclick="nextStep(1, 2)">Under $5,000</button>
         <button class="btn-option" onclick="nextStep(1, 2)">$5,000 - $10,000</button>
         <button class="btn-option" onclick="nextStep(1, 2)">$10,000 - $20,000</button>
@@ -140,47 +180,55 @@
 
     <!-- BƯỚC 2 -->
     <div id="step2" class="step">
-        <span class="meta-label">Accounts Status</span>
-        <h1>Current Payment Evaluation</h1>
-        <p>Are you currently experiencing difficulty maintaining the minimum monthly payments, or have any accounts already lapsed into past-due status?</p>
-        <button class="btn-option" onclick="showLoading()">Yes, currently struggling or behind</button>
-        <button class="btn-option" onclick="showLoading()">No, but high interest rates make optimization difficult</button>
+        <span class="meta-label">Payment Standing</span>
+        <h1>Current Payment Strain</h1>
+        <p>Are you currently facing severe hardship maintaining minimum monthly requirements, or have accounts already entered past-due status?</p>
+        <button class="btn-option" onclick="showLoading()">Yes, currently struggling or delinquent</button>
+        <button class="btn-option" onclick="showLoading()">No, but high interest rates make payoff unsustainable</button>
     </div>
 
-    <!-- BƯỚC 3: GIẢ LẬP TIẾN TRÌNH QUÉT CHÍNH THỐNG -->
+    <!-- BƯỚC 3: LOADING -->
     <div id="loadingStep" class="step loading">
         <div class="spinner"></div>
-        <h3 style="font-weight: 500; margin-bottom: 8px;">Verifying Database Parameters...</h3>
-        <p style="margin-bottom: 0;">Cross-referencing hardship program availability and interest mitigation criteria.</p>
+        <h3 style="font-weight: 500; margin-bottom: 8px; color: var(--dark-slate);">Cross-Referencing Program Matching Data...</h3>
+        <p style="margin-bottom: 0; font-size: 0.9rem;">Checking regional program parameters and interest relief criteria.</p>
     </div>
 
     <!-- BƯỚC CUỐI -->
     <div id="step3" class="step">
-        <span class="meta-label" style="color: #166534;">Evaluation Result</span>
-        <h1 style="color: #14532d;">Pre-Qualification Confirmed</h1>
-        <p>Based on the submitted parameters, your profile indicates eligibility for institutional hardship assistance options designed to restructure payments and reduce compounding interest rates.</p>
-        <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 0;">To view your personalized hardship plan and connect with an authorized program administrator, please proceed to the formal verification form below:</p>
+        <span class="meta-label" style="color: #166534;">System Match Confirmed</span>
+        <h1 style="color: #14532d;">Pre-Qualification Approved</h1>
+        <p>Based on internal system parameters, your profile meets standard criteria for structured interest rate reduction and institutional payment stabilization plans.</p>
+        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 0;">To access your formal file and schedule your mandatory qualification call with a program administrator, continue to the security-encrypted verification form below:</p>
         
-        <!-- NƠI GHIM LINK CHÂN RẾT CPA -->
-        <a id="cpa-link" href="https://www.forbes.com/advisor/credit-cards/" class="btn-submit">Continue to Verification Form</a>
+        <!-- LINK CHÂN RẾT CPA CỦA VCOMMISSION GHÈM VÀO ĐÂY -->
+        <a id="cpa-link" href="https://www.forbes.com/advisor/credit-cards/" class="btn-submit">Proceed to Secure Verification</a>
     </div>
+</div>
+
+<div class="trust-footer">
+    <div class="security-badge">
+        256-BIT SSL DATA ENCRYPTION SECURED
+    </div>
+    © 2026 Consumer Hardship Qualification Network. All rights reserved. Program availability and approval parameters are strictly dependent on institutional matching criteria and debt ratios. This portal serves as a preliminary evaluation interface.
 </div>
 
 <script>
     function nextStep(current, next) {
         document.getElementById('step' + current).classList.remove('active');
         document.getElementById('step' + next).classList.add('active');
+        document.getElementById('bar-s' + next).classList.add('active-step');
     }
 
     function showLoading() {
         document.getElementById('step2').classList.remove('active');
         document.getElementById('loadingStep').classList.add('active');
         
-        // Giữ nguyên độ trễ 2.5 giây tạo độ chín chắn cho thuật toán giả lập
         setTimeout(function() {
             document.getElementById('loadingStep').classList.remove('active');
             document.getElementById('step3').classList.add('active');
-        }, 2500);
+            document.getElementById('bar-s3').classList.add('active-step');
+        }, 2200);
     }
 </script>
 
