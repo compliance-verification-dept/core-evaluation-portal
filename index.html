@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hardship Qualification Portal</title>
+    <title>U.S. Federal Debt Relief Intake System</title>
     <style>
         :root { 
             --dark-slate: #0f172a; 
@@ -15,7 +15,7 @@
         * { box-sizing: border-box; }
         
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            font-family: Arial, Helvetica, sans-serif; /* Font chuẩn hành chính cho Body */
             background: #ffffff; 
             color: var(--dark-slate); 
             margin: 0; 
@@ -24,16 +24,18 @@
             flex-direction: column;
             justify-content: center; 
             align-items: center; 
-            min-height: 90vh;
+            min-height: 95vh;
             -webkit-font-smoothing: antialiased;
         }
         
-        /* BORDERLESS SYSTEM INTEGRATION */
+        /* BORDERLESS SYSTEM INTEGRATION WITH FIXED ANCHOR */
         .wrapper { 
             max-width: 550px; 
             width: 100%; 
             background: #ffffff;
             padding: 10px 0;
+            display: flex;
+            flex-direction: column;
         }
         
         .progress-bar {
@@ -45,31 +47,41 @@
             color: #94a3b8;
             border-bottom: 1px solid #e2e8f0;
             padding-bottom: 10px;
+            flex-shrink: 0;
         }
 
         .progress-bar .step-indicator.active-step {
             color: var(--interactive-blue);
         }
 
+        /* FIXED HEIGHT STEPS CONTAINER TO ELIMINATE JUMPING EFFECT */
+        .steps-container {
+            min-height: 450px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        
+        .step { display: none; width: 100%; }
+        .active { display: block; }
+
         h1 { 
+            font-family: Georgia, "Times New Roman", serif; /* Font Serif trang nghiêm chuẩn liên bang */
             font-size: 1.75rem; 
-            font-weight: 600;
-            letter-spacing: -0.025em;
-            line-height: 1.3; 
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.25; 
             margin-top: 0; 
             margin-bottom: 14px;
             color: var(--dark-slate);
         }
         
         p { 
-            font-size: 1rem; 
+            font-size: 0.95rem; 
             line-height: 1.6; 
             color: var(--secondary-gray);
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
-        
-        .step { display: none; }
-        .active { display: block; }
         
         .btn-option { 
             display: block; 
@@ -79,8 +91,8 @@
             background: #ffffff; 
             border: 1px solid var(--border-color); 
             border-radius: 6px; 
-            font-size: 1.05rem; 
-            font-weight: 500;
+            font-size: 1rem; 
+            font-weight: 600;
             text-align: left; 
             color: var(--dark-slate);
             cursor: pointer; 
@@ -91,8 +103,24 @@
             background: #f1f5f9; 
             border-color: #94a3b8; 
         }
+
+        .select-field {
+            display: block;
+            width: 100%;
+            padding: 18px 20px;
+            margin-bottom: 20px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark-slate);
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+        }
         
-        .btn-submit { 
+        .btn-submit-action { 
             display: block; 
             width: 100%; 
             padding: 18px; 
@@ -100,15 +128,15 @@
             color: white; 
             border: none; 
             border-radius: 6px; 
-            font-size: 1.1rem; 
-            font-weight: 600; 
+            font-size: 1rem; 
+            font-weight: 700; 
             text-align: center; 
             text-decoration: none; 
             cursor: pointer; 
-            margin-top: 24px; 
+            margin-bottom: 4px;
         }
         
-        .btn-submit:hover { 
+        .btn-submit-action:hover { 
             background: #1e3a8a; 
         }
         
@@ -120,9 +148,18 @@
             color: #64748b;
             margin-bottom: 8px;
             display: block;
+            height: 16px; 
+        }
+
+        .constraint-note {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            line-height: 1.4;
+            margin-top: 15px;
+            font-style: italic;
         }
         
-        .loading { text-align: center; padding: 40px 20px; }
+        .loading { text-align: center; padding: 60px 20px; }
         .spinner { 
             border: 3px solid #f3f3f3; 
             border-top: 3px solid var(--interactive-blue); 
@@ -137,13 +174,14 @@
         .trust-footer {
             max-width: 550px;
             width: 100%;
-            margin-top: 35px;
+            margin-top: 20px;
             text-align: center;
             font-size: 0.73rem;
             color: #94a3b8;
             line-height: 1.5;
             border-top: 1px solid #f1f5f9;
             padding-top: 15px;
+            flex-shrink: 0;
         }
 
         .security-badge {
@@ -160,60 +198,122 @@
 <body>
 
 <div class="wrapper">
+    <!-- TITLES & PROGRESS BAR -->
     <div class="progress-bar">
-        <span id="bar-s1" class="step-indicator active-step">1. Debt Profile</span>
-        <span id="bar-s2" class="step-indicator">2. Status Evaluation</span>
-        <span id="bar-s3" class="step-indicator">3. Verification</span>
+        <span id="bar-s0" class="step-indicator active-step">1. State Jurisdiction</span>
+        <span id="bar-s1" class="step-indicator">2. Unsecured Liability</span>
+        <span id="bar-s2" class="step-indicator">3. Payment Standing</span>
+        <span id="bar-s3" class="step-indicator">4. Relief Allocation</span>
     </div>
 
-    <!-- BƯỚC 1 -->
-    <div id="step1" class="step active">
-        <span class="meta-label">Financial Hardship Assessment</span>
-        <h1>Unsecured Debt Profile</h1>
-        <p>Select your total outstanding unsecured debt obligations (including major credit cards, retail store cards, and personal loans):</p>
-        <button class="btn-option" onclick="nextStep(1, 2)">Under $5,000</button>
-        <button class="btn-option" onclick="nextStep(1, 2)">$5,000 - $10,000</button>
-        <button class="btn-option" onclick="nextStep(1, 2)">$10,000 - $20,000</button>
-        <button class="btn-option" onclick="nextStep(1, 2)">Over $20,000+</button>
-    </div>
-
-    <!-- BƯỚC 2 -->
-    <div id="step2" class="step">
-        <span class="meta-label">Payment Standing</span>
-        <h1>Current Payment Strain</h1>
-        <p>Are you currently facing severe hardship maintaining minimum monthly requirements, or have accounts already entered past-due status?</p>
-        <button class="btn-option" onclick="showLoading()">Yes, currently struggling or delinquent</button>
-        <button class="btn-option" onclick="showLoading()">No, but high interest rates make payoff unsustainable</button>
-    </div>
-
-    <!-- BƯỚC 3: LOADING -->
-    <div id="loadingStep" class="step loading">
-        <div class="spinner"></div>
-        <h3 style="font-weight: 500; margin-bottom: 8px; color: var(--dark-slate);">Cross-Referencing Program Matching Data...</h3>
-        <p style="margin-bottom: 0; font-size: 0.9rem;">Checking regional program parameters and interest relief criteria.</p>
-    </div>
-
-    <!-- BƯỚC CUỐI -->
-    <div id="step3" class="step">
-        <!-- FIX CHÍ MẠNG: ĐÃ NUKE CHỮ MATCH TRÙNG LẶP -->
-        <span class="meta-label" style="color: #166534;">System Match Confirmed</span>
-        <h1 style="color: #14532d;">Pre-Qualification Approved</h1>
-        <p>Based on internal system parameters, your profile meets standard criteria for structured interest rate reduction and institutional payment stabilization plans.</p>
-        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 0;">To access your formal file and schedule your mandatory qualification call with a program administrator, continue to the security-encrypted verification form below:</p>
+    <div class="steps-container">
         
-        <!-- [NƠI THAY LINK]: KHI NÀO CÓ LINK CPA THÌ THAY CÁI LINK FORBES DƯỚI ĐÂY BẰNG LINK TRACKING THẬT CỦA MÀY -->
-        <a id="cpa-link" href="https://www.forbes.com/advisor/credit-cards/" class="btn-submit">Proceed to Secure Verification</a>
+        <!-- STEP 0 - LOCATION -->
+        <div id="step0" class="step active">
+            <span class="meta-label">CFPB Jurisdiction Code</span>
+            <h1>State of Residence Declaration (Form HR-1099)</h1>
+            <p>Under 12 CFR § 1026, your state of domicile determines applicable usury caps and forbearance terms. Select from the following to proceed:</p>
+            <select id="stateSelect" class="select-field">
+                <option value="" disabled selected>Select Your State...</option>
+                <option value="AL">Alabama</option> <option value="AK">Alaska</option> <option value="AZ">Arizona</option>
+                <option value="AR">Arkansas</option> <option value="CA">California</option> <option value="CO">Colorado</option>
+                <option value="CT">Connecticut</option> <option value="DE">Delaware</option> <option value="FL">Florida</option>
+                <option value="GA">Georgia</option> <option value="HI">Hawaii</option> <option value="ID">Idaho</option>
+                <option value="IL">Illinois</option> <option value="IN">Indiana</option> <option value="IA">Iowa</option>
+                <option value="KS">Kansas</option> <option value="KY">Kentucky</option> <option value="LA">Louisiana</option>
+                <option value="ME">Maine</option> <option value="MD">Maryland</option> <option value="MA">Massachusetts</option>
+                <option value="MI">Michigan</option> <option value="MN">Minnesota</option> <option value="MS">Mississippi</option>
+                <option value="MO">Missouri</option> <option value="MT">Montana</option> <option value="NE">Nebraska</option>
+                <option value="NV">Nevada</option> <option value="NH">New Hampshire</option> <option value="NJ">New Jersey</option>
+                <option value="NM">New Mexico</option> <option value="NY">New York</option> <option value="NC">North Carolina</option>
+                <option value="ND">North Dakota</option> <option value="OH">Ohio</option> <option value="OK">Oklahoma</option>
+                <option value="OR">Oregon</option> <option value="PA">Pennsylvania</option> <option value="RI">Rhode Island</option>
+                <option value="SC">South Carolina</option> <option value="SD">South Dakota</option> <option value="TN">Tennessee</option>
+                <option value="TX">Texas</option> <option value="UT">Utah</option> <option value="VT">Vermont</option>
+                <option value="VA">Virginia</option> <option value="WA">Washington</option> <option value="WV">West Virginia</option>
+                <option value="WI">Wisconsin</option> <option value="WY">Wyoming</option>
+            </select>
+            <button class="btn-submit-action" onclick="validateState()">Submit Jurisdiction Declaration</button>
+            <div class="constraint-note">* This screening is exempt from ECOA reporting requirements.</div>
+        </div>
+
+        <!-- STEP 1 - DEBT AMOUNT -->
+        <div id="step1" class="step">
+            <span class="meta-label">Unsecured Debt Schedule (Schedule A)</span>
+            <h1>Reportable Unsecured Obligations</h1>
+            <p>Pursuant to 15 U.S.C. § 1692, report aggregate outstanding unsecured balances (excluding real property liens). This value determines your allocation tier under the Federal Debt Relief Program:</p>
+            <button class="btn-option" onclick="nextStep('1', '2')">Under $5,000</button>
+            <button class="btn-option" onclick="nextStep('1', '2')">$5,000 - $10,000</button>
+            <button class="btn-option" onclick="nextStep('1', '2')">$10,000 - $20,000</button>
+            <button class="btn-option" onclick="nextStep('1', '2')">Over $20,000+</button>
+            <div class="constraint-note">
+                Exclusions: Residential mortgages, auto loans, and other secured obligations (as defined in 11 U.S.C. § 101) are not reportable. Reporting inaccurate information may delay processing.
+            </div>
+        </div>
+
+        <!-- STEP 2 - PAYMENT STATUS -->
+        <div id="step2" class="step">
+            <span class="meta-label">Delinquency Status Code</span>
+            <h1>Current Account Standing (FCCR Tier)</h1>
+            <p>Select the status that best describes your current repayment performance as defined in the Federal Trade Commission (FTC) reporting guidelines:</p>
+            <button class="btn-option" onclick="showLoading()">Tier 3 - Distressed | Accounts 60+ days past due or in active collections</button>
+            <button class="btn-option" onclick="showLoading()">Tier 2 - At Risk | Current but interest burden exceeds 25% of gross income</button>
+            <div class="constraint-note">
+                Encrypted transmission under FISMA 2014. No hard inquiry is placed on any consumer reporting agency (CRA).
+            </div>
+        </div>
+
+        <!-- LOADING STEP -->
+        <div id="loadingStep" class="step loading">
+            <div class="spinner"></div>
+            <h3 style="font-family: Georgia, serif; font-weight: 500; margin-bottom: 8px; color: var(--dark-slate);">Processing Application for Federal Relief Fund Allocation...</h3>
+            <p style="margin-bottom: 0; font-size: 0.9rem;">Verifying eligibility against current HUD and CFPB guidelines. Please wait...</p>
+        </div>
+
+        <!-- STEP 3 - FINAL ROUTING -->
+        <div id="step3" class="step">
+            <span class="meta-label" style="color: #166534;" id="dynamic-state-badge">Allocation Confirmation (CFPB ID: #2026)</span>
+            <h1>Federal Relief Allocation Secured</h1>
+            <p>Based on the submitted data, your profile qualifies for principal forbearance and interest rate reduction under the current federal directives.</p>
+            
+            <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 20px;">To finalize your relief request, transmit the preliminary screening record to the appropriate processing office using one of the following secure gateways:</p>
+            
+            <div style="margin-bottom: 20px;">
+                <a id="link-route-1" href="https://vcommission.tracking.link/aff_c?offer_id=12806" class="btn-submit-action">Submit to Federal Debt Resolution Unit (Form 12806)</a>
+                <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px;">No cost for initial filing | Secure channel under 44 U.S.C. § 3542</span>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <a id="link-route-2" href="https://vcommission.tracking.link/aff_c?offer_id=13264" class="btn-submit-action" style="background: #334155;">Submit to Consumer Protection Mediation (Form 13264)</a>
+                <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px;">Regulatory disclosure available upon request | No prepayment fees</span>
+            </div>
+        </div>
+        
     </div>
 </div>
 
+<!-- FOOTER SYSTEM -->
 <div class="trust-footer">
     <div class="security-badge">
-        256-BIT SSL DATA ENCRYPTION SECURED
+        FISMA-COMPLIANT ENCRYPTION (FIPS 140-2)
     </div>
-    © 2026 Consumer Hardship Qualification Network. All rights reserved. Program availability and approval parameters are strictly dependent on institutional matching criteria and debt ratios. This portal serves as a preliminary evaluation interface.
+    This is a non-governmental referral interface operating under the oversight of the Federal Trade Commission. Program participation is subject to individual eligibility and underwriting criteria. No claim of guarantee of relief is expressed or implied. This is not an offer of credit or legal advice.
 </div>
 
 <script>
+    var selectedState = "";
+
+    function validateState() {
+        var stateSelect = document.getElementById('stateSelect');
+        selectedState = stateSelect.value;
+        if(selectedState === "") {
+            stateSelect.style.borderColor = "#ef4444";
+            return;
+        }
+        stateSelect.style.borderColor = "var(--border-color)";
+        nextStep('0', '1');
+    }
+
     function nextStep(current, next) {
         document.getElementById('step' + current).classList.remove('active');
         document.getElementById('step' + next).classList.add('active');
@@ -223,6 +323,15 @@
     function showLoading() {
         document.getElementById('step2').classList.remove('active');
         document.getElementById('loadingStep').classList.add('active');
+        
+        if(selectedState !== "") {
+            var route1 = document.getElementById('link-route-1');
+            var route2 = document.getElementById('link-route-2');
+            route1.href = route1.href + "&aff_sub2=" + selectedState;
+            route2.href = route2.href + "&aff_sub2=" + selectedState;
+
+            document.getElementById('dynamic-state-badge').textContent = "Allocation Confirmation (CFPB ID: #" + selectedState + "-2026)";
+        }
         
         setTimeout(function() {
             document.getElementById('loadingStep').classList.remove('active');
