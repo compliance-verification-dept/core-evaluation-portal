@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="impact-site-verification" content="c4649e5b-9881-41e9-89c4-0361cd6dabee">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>U.S. Federal Debt Relief Intake System</title>
+    <title>U.S. Federal Debt Relief</title>
     <style>
         :root { 
             --dark-slate: #0f172a; 
@@ -16,7 +15,7 @@
         * { box-sizing: border-box; }
         
         body { 
-            font-family: Arial, Helvetica, sans-serif; /* Font chuẩn hành chính cho Body */
+            font-family: Arial, Helvetica, sans-serif;
             background: #ffffff; 
             color: var(--dark-slate); 
             margin: 0; 
@@ -29,7 +28,6 @@
             -webkit-font-smoothing: antialiased;
         }
         
-        /* BORDERLESS SYSTEM INTEGRATION WITH FIXED ANCHOR */
         .wrapper { 
             max-width: 550px; 
             width: 100%; 
@@ -55,7 +53,6 @@
             color: var(--interactive-blue);
         }
 
-        /* FIXED HEIGHT STEPS CONTAINER TO ELIMINATE JUMPING EFFECT */
         .steps-container {
             min-height: 450px; 
             display: flex;
@@ -67,7 +64,7 @@
         .active { display: block; }
 
         h1 { 
-            font-family: Georgia, "Times New Roman", serif; /* Font Serif trang nghiêm chuẩn liên bang */
+            font-family: Georgia, "Times New Roman", serif;
             font-size: 1.75rem; 
             font-weight: 700;
             letter-spacing: -0.01em;
@@ -199,7 +196,6 @@
 <body>
 
 <div class="wrapper">
-    <!-- TITLES & PROGRESS BAR -->
     <div class="progress-bar">
         <span id="bar-s0" class="step-indicator active-step">1. State Jurisdiction</span>
         <span id="bar-s1" class="step-indicator">2. Unsecured Liability</span>
@@ -279,13 +275,14 @@
             
             <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 20px;">To finalize your relief request, transmit the preliminary screening record to the appropriate processing office using one of the following secure gateways:</p>
             
+            <!-- CLEAN DYNAMIC PATHWAY FOR MAXBOUNTY OFFERS -->
             <div style="margin-bottom: 20px;">
-                <a id="link-route-1" href="https://vcommission.tracking.link/aff_c?offer_id=12806" class="btn-submit-action">Submit to Federal Debt Resolution Unit (Form 12806)</a>
+                <a id="link-route-1" href="#" class="btn-submit-action">Submit to Federal Debt Resolution Unit (Gateway A)</a>
                 <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px;">No cost for initial filing | Secure channel under 44 U.S.C. § 3542</span>
             </div>
 
             <div style="margin-bottom: 20px;">
-                <a id="link-route-2" href="https://vcommission.tracking.link/aff_c?offer_id=13264" class="btn-submit-action" style="background: #334155;">Submit to Consumer Protection Mediation (Form 13264)</a>
+                <a id="link-route-2" href="#" class="btn-submit-action" style="background: #334155;">Submit to Consumer Protection Mediation (Gateway B)</a>
                 <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px;">Regulatory disclosure available upon request | No prepayment fees</span>
             </div>
         </div>
@@ -293,7 +290,6 @@
     </div>
 </div>
 
-<!-- FOOTER SYSTEM -->
 <div class="trust-footer">
     <div class="security-badge">
         FISMA-COMPLIANT ENCRYPTION (FIPS 140-2)
@@ -328,8 +324,10 @@
         if(selectedState !== "") {
             var route1 = document.getElementById('link-route-1');
             var route2 = document.getElementById('link-route-2');
-            route1.href = route1.href + "&aff_sub2=" + selectedState;
-            route2.href = route2.href + "&aff_sub2=" + selectedState;
+            
+            // Đã xóa sạch link cũ, sẵn sàng nối đuôi tracking nội bộ
+            route1.href = "YOUR_MAXBOUNTY_LINK_HERE" + "&s2=" + selectedState;
+            route2.href = "YOUR_MAXBOUNTY_LINK_HERE" + "&s2=" + selectedState;
 
             document.getElementById('dynamic-state-badge').textContent = "Allocation Confirmation (CFPB ID: #" + selectedState + "-2026)";
         }
