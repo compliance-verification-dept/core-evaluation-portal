@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>U.S. Federal Debt Relief</title>
+    <title>National Debt Assistance Portal</title>
     <style>
         :root { 
             --dark-slate: #0f172a; 
@@ -200,16 +200,15 @@
         <span id="bar-s0" class="step-indicator active-step">1. State Jurisdiction</span>
         <span id="bar-s1" class="step-indicator">2. Unsecured Liability</span>
         <span id="bar-s2" class="step-indicator">3. Payment Standing</span>
-        <span id="bar-s3" class="step-indicator">4. Relief Allocation</span>
+        <span id="bar-s3" class="step-indicator">4. Program Match</span>
     </div>
 
     <div class="steps-container">
         
-        <!-- STEP 0 - LOCATION -->
         <div id="step0" class="step active">
-            <span class="meta-label">CFPB Jurisdiction Code</span>
-            <h1>State of Residence Declaration (Form HR-1099)</h1>
-            <p>Under 12 CFR § 1026, your state of domicile determines applicable usury caps and forbearance terms. Select from the following to proceed:</p>
+            <span class="meta-label">Jurisdiction Code</span>
+            <h1>State of Residence Declaration</h1>
+            <p>Applicable debt relief regulations and usury boundaries vary by geography. Select your state of domicile to view available resolution strategies:</p>
             <select id="stateSelect" class="select-field">
                 <option value="" disabled selected>Select Your State...</option>
                 <option value="AL">Alabama</option> <option value="AK">Alaska</option> <option value="AZ">Arizona</option>
@@ -230,60 +229,55 @@
                 <option value="VA">Virginia</option> <option value="WA">Washington</option> <option value="WV">West Virginia</option>
                 <option value="WI">Wisconsin</option> <option value="WY">Wyoming</option>
             </select>
-            <button class="btn-submit-action" onclick="validateState()">Submit Jurisdiction Declaration</button>
-            <div class="constraint-note">* This screening is exempt from ECOA reporting requirements.</div>
+            <button class="btn-submit-action" onclick="validateState()">Submit Domicile Declaration</button>
+            <div class="constraint-note">* Pre-screening data is processed in compliance with standard network privacy terms.</div>
         </div>
 
-        <!-- STEP 1 - DEBT AMOUNT -->
         <div id="step1" class="step">
-            <span class="meta-label">Unsecured Debt Schedule (Schedule A)</span>
-            <h1>Reportable Unsecured Obligations</h1>
-            <p>Pursuant to 15 U.S.C. § 1692, report aggregate outstanding unsecured balances (excluding real property liens). This value determines your allocation tier under the Federal Debt Relief Program:</p>
+            <span class="meta-label">Unsecured Debt Schedule</span>
+            <h1>Aggregate Outstanding Obligations</h1>
+            <p>Select your total unsecured liability balance. This value determines the available underwriting framework for debt restructuring:</p>
             <button class="btn-option" onclick="nextStep('1', '2')">Under $5,000</button>
             <button class="btn-option" onclick="nextStep('1', '2')">$5,000 - $10,000</button>
             <button class="btn-option" onclick="nextStep('1', '2')">$10,000 - $20,000</button>
             <button class="btn-option" onclick="nextStep('1', '2')">Over $20,000+</button>
             <div class="constraint-note">
-                Exclusions: Residential mortgages, auto loans, and other secured obligations (as defined in 11 U.S.C. § 101) are not reportable. Reporting inaccurate information may delay processing.
+                Exclusions: Secured loans, including residential mortgages and auto financing, are excluded from standard unsecured restructuring programs.
             </div>
         </div>
 
-        <!-- STEP 2 - PAYMENT STATUS -->
         <div id="step2" class="step">
-            <span class="meta-label">Delinquency Status Code</span>
-            <h1>Current Account Standing (FCCR Tier)</h1>
-            <p>Select the status that best describes your current repayment performance as defined in the Federal Trade Commission (FTC) reporting guidelines:</p>
-            <button class="btn-option" onclick="showLoading()">Tier 3 - Distressed | Accounts 60+ days past due or in active collections</button>
-            <button class="btn-option" onclick="showLoading()">Tier 2 - At Risk | Current but interest burden exceeds 25% of gross income</button>
+            <span class="meta-label">Account Standing Code</span>
+            <h1>Current Repayment Status</h1>
+            <p>Select the status that accurately reflects your ongoing account performance with creditors:</p>
+            <button class="btn-option" onclick="showLoading()">Accounts are 60+ days past due or in active collections</button>
+            <button class="btn-option" onclick="showLoading()">Accounts are current but high interest impacts debt-to-income ratio</button>
             <div class="constraint-note">
-                Encrypted transmission under FISMA 2014. No hard inquiry is placed on any consumer reporting agency (CRA).
+                Secure transmission active. Submission does not initiate a credit bureau hard inquiry.
             </div>
         </div>
 
-        <!-- LOADING STEP -->
         <div id="loadingStep" class="step loading">
             <div class="spinner"></div>
-            <h3 style="font-family: Georgia, serif; font-weight: 500; margin-bottom: 8px; color: var(--dark-slate);">Processing Application for Federal Relief Fund Allocation...</h3>
-            <p style="margin-bottom: 0; font-size: 0.9rem;">Verifying eligibility against current HUD and CFPB guidelines. Please wait...</p>
+            <h3 style="font-family: Georgia, serif; font-weight: 500; margin-bottom: 8px; color: var(--dark-slate);">Evaluating Profile Parameters...</h3>
+            <p style="margin-bottom: 0; font-size: 0.9rem;">Matching criteria against available regional underwriting options. Please wait...</p>
         </div>
 
-        <!-- STEP 3 - FINAL ROUTING -->
         <div id="step3" class="step">
-            <span class="meta-label" style="color: #166534;" id="dynamic-state-badge">Allocation Confirmation (CFPB ID: #2026)</span>
-            <h1>Federal Relief Allocation Secured</h1>
-            <p>Based on the submitted data, your profile qualifies for principal forbearance and interest rate reduction under the current federal directives.</p>
+            <span class="meta-label" style="color: #166534;" id="dynamic-state-badge">Matching Profile Verified</span>
+            <h1>Debt Resolution Path Options</h1>
+            <p>Based on your localized submission parameters, your profile qualifies for specialized consumer debt negotiation frameworks and rate optimization strategies.</p>
             
-            <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 20px;">To finalize your relief request, transmit the preliminary screening record to the appropriate processing office using one of the following secure gateways:</p>
+            <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 20px;">To finalize your documentation review, select one of the verified clearing modules below to link your record:</p>
             
-            <!-- CLEAN DYNAMIC PATHWAY FOR MAXBOUNTY OFFERS -->
             <div style="margin-bottom: 20px;">
-                <a id="link-route-1" href="#" class="btn-submit-action">Submit to Federal Debt Resolution Unit (Gateway A)</a>
-                <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px;">No cost for initial filing | Secure channel under 44 U.S.C. § 3542</span>
+                <a id="link-route-1" href="#" class="btn-submit-action">Access Debt Negotiation Processing Office</a>
+                <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px;">Standard verification channel | Secure data transmission</span>
             </div>
 
             <div style="margin-bottom: 20px;">
-                <a id="link-route-2" href="#" class="btn-submit-action" style="background: #334155;">Submit to Consumer Protection Mediation (Gateway B)</a>
-                <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px;">Regulatory disclosure available upon request | No prepayment fees</span>
+                <a id="link-route-2" href="#" class="btn-submit-action" style="background: #334155;">Access Consumer Debt Consolidation Module</a>
+                <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px;">Regulatory compliance standards applied | Initial profile review cost-free</span>
             </div>
         </div>
         
@@ -292,9 +286,9 @@
 
 <div class="trust-footer">
     <div class="security-badge">
-        FISMA-COMPLIANT ENCRYPTION (FIPS 140-2)
+        DATA ENCRYPTION ARCHITECTURE (AES-256)
     </div>
-    This is a non-governmental referral interface operating under the oversight of the Federal Trade Commission. Program participation is subject to individual eligibility and underwriting criteria. No claim of guarantee of relief is expressed or implied. This is not an offer of credit or legal advice.
+    This interface serves as an independent consumer information and referral hub. Program availability is subject to local state laws, individual client eligibility, and the guidelines of participating independent resolution groups.
 </div>
 
 <script>
@@ -325,11 +319,10 @@
             var route1 = document.getElementById('link-route-1');
             var route2 = document.getElementById('link-route-2');
             
-            // Đã xóa sạch link cũ, sẵn sàng nối đuôi tracking nội bộ
-            route1.href = "YOUR_MAXBOUNTY_LINK_HERE" + "&s2=" + selectedState;
-            route2.href = "YOUR_MAXBOUNTY_LINK_HERE" + "&s2=" + selectedState;
+            route1.href = "YOUR_OFFER_LINK_A" + "&sub2=" + selectedState;
+            route2.href = "YOUR_OFFER_LINK_B" + "&sub2=" + selectedState;
 
-            document.getElementById('dynamic-state-badge').textContent = "Allocation Confirmation (CFPB ID: #" + selectedState + "-2026)";
+            document.getElementById('dynamic-state-badge').textContent = "Profile Match Secured (ID: #" + selectedState + "-2026)";
         }
         
         setTimeout(function() {
