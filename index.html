@@ -207,6 +207,7 @@
             border-top: 1px solid #f1f5f9;
             padding-top: 15px;
             flex-shrink: 0;
+            font-style: italic;
         }
 
         .security-badge {
@@ -217,6 +218,7 @@
             color: #64748b;
             font-weight: 600;
             letter-spacing: 0.03em;
+            font-style: normal;
         }
     </style>
 </head>
@@ -258,7 +260,7 @@
                 <option value="WI">Wisconsin</option> <option value="WY">Wyoming</option>
             </select>
             <button class="btn-submit-action" onclick="validateState()">Submit Domicile Declaration</button>
-            <div class="constraint-note">* Pre-screening data is processed in compliance with standard network privacy terms.</div>
+            <div class="constraint-note">* Pre-screening data is processed in strict compliance with standard regional privacy terms.</div>
         </div>
 
         <div id="step1" class="step">
@@ -270,7 +272,7 @@
             <button class="btn-option" onclick="setDebtAmount(25000)">Over $20,000+</button>
             <button class="btn-back-link" onclick="prevStep('1', '0')">← Return to Previous Step</button>
             <div class="constraint-note">
-                Exclusions: Secured loans, including residential mortgages and auto financing, are excluded from standard unsecured restructuring programs.
+                * Exclusions: Secured obligations, including primary mortgages and auto financing lines, are completely excluded from standard unsecured restructuring frameworks.
             </div>
         </div>
 
@@ -282,14 +284,14 @@
             <button class="btn-option" onclick="showLoading()">Accounts are current but high interest impacts debt-to-income ratio</button>
             <button class="btn-back-link" onclick="prevStep('2', '1')">← Return to Previous Step</button>
             <div class="constraint-note">
-                Secure transmission active. Submission does not initiate a credit bureau hard inquiry.
+                * Transmission Status: Secure transit pathway active. Profile evaluation does not initiate a credit bureau hard inquiry or modify consumer credit index scores.
             </div>
         </div>
 
         <div id="loadingStep" class="step loading">
             <div class="spinner"></div>
             <h3 style="font-family: Georgia, serif; font-weight: 500; margin-bottom: 8px; color: var(--dark-slate);">Evaluating Profile Parameters...</h3>
-            <p style="margin-bottom: 0; font-size: 0.9rem;">Matching criteria against available regional underwriting options. Please wait...</p>
+            <p style="margin-bottom: 0; font-size: 0.9rem; font-style: italic; color: #94a3b8;">* Matching user-submitted parameters against active regional underwriting frameworks. Please wait...</p>
         </div>
 
         <div id="step3" class="step">
@@ -301,16 +303,16 @@
             
             <div id="wrapper-route-1" style="margin-bottom: 20px;">
                 <a id="link-route-1" href="#" class="btn-submit-action">Access Debt Negotiation Processing Office</a>
-                <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px;">Standard verification channel | Secure data transmission</span>
+                <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px; font-style: italic;">* Standard verification channel | Secure structural routing</span>
             </div>
 
             <div id="wrapper-route-2" style="margin-bottom: 20px;">
                 <a id="link-route-2" href="#" class="btn-submit-action" style="background: #334155;">Access Consumer Debt Consolidation Module</a>
-                <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px;">Regulatory compliance standards applied | Initial profile review cost-free</span>
+                <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px; font-style: italic;">* Network compliance rules applied | Initial validation review cost-free</span>
             </div>
             
-            <div class="constraint-note" style="margin-top: 25px; border-top: 1px dashed #e2e8f0; padding-top: 10px; font-style: normal; color: #64748b;">
-                <strong>Secure Clearing Notice:</strong> Selected modules will directly transfer your verified routing token to the designated regional processing office. No commercial advertising cookies are applied during this administrative transit.
+            <div class="constraint-note" style="margin-top: 25px; border-top: 1px dashed #e2e8f0; padding-top: 10px; color: #64748b;">
+                * Secure Clearing Notice: Selected infrastructure modules will securely transmit your verified structural tokens directly to the designated regional processing units. No commercial advertising cookies or tracking scripts are deployed during this transit event.
             </div>
         </div>
         
@@ -321,7 +323,7 @@
     <div class="security-badge">
         DATA ENCRYPTION ARCHITECTURE (AES-256)
     </div>
-    This interface serves as an independent consumer information and referral hub. Program availability is subject to local state laws, individual client eligibility, and the guidelines of participating independent resolution groups.
+    * Verification Disclosure: This digital interface serves as an independent information analysis and automated routing framework. Final program availability remains strictly subject to verified local state jurisdictions, individual underwriter approval thresholds, and the established guidelines of participating independent clearing networks.
 </div>
 
 <script>
@@ -364,7 +366,6 @@
             var route1 = document.getElementById('link-route-1');
             var route2 = document.getElementById('link-route-2');
             var wrap1 = document.getElementById('wrapper-route-1');
-            var wrap2 = document.getElementById('wrapper-route-2');
             
             var curadebtRestricted = ["CT", "GA", "IL", "KS", "ME", "NH", "NV", "SC"];
             
@@ -393,3 +394,4 @@
 
 </body>
 </html>
+
