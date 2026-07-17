@@ -148,6 +148,23 @@
             background: #1e3a8a; 
         }
         
+        .btn-back-link {
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: 600;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+        
+        .btn-back-link:hover {
+            color: var(--secondary-gray);
+        }
+        
         .meta-label { 
             font-size: 0.75rem; 
             text-transform: uppercase;
@@ -251,6 +268,7 @@
             <button class="btn-option" onclick="setDebtAmount(5000)">Under $10,000</button>
             <button class="btn-option" onclick="setDebtAmount(15000)">$10,000 - $20,000</button>
             <button class="btn-option" onclick="setDebtAmount(25000)">Over $20,000+</button>
+            <button class="btn-back-link" onclick="prevStep('1', '0')">← Return to Previous Step</button>
             <div class="constraint-note">
                 Exclusions: Secured loans, including residential mortgages and auto financing, are excluded from standard unsecured restructuring programs.
             </div>
@@ -262,6 +280,7 @@
             <p>Select the status that accurately reflects your ongoing account performance with creditors:</p>
             <button class="btn-option" onclick="showLoading()">Accounts are 60+ days past due or in active collections</button>
             <button class="btn-option" onclick="showLoading()">Accounts are current but high interest impacts debt-to-income ratio</button>
+            <button class="btn-back-link" onclick="prevStep('2', '1')">← Return to Previous Step</button>
             <div class="constraint-note">
                 Secure transmission active. Submission does not initiate a credit bureau hard inquiry.
             </div>
@@ -288,6 +307,10 @@
             <div id="wrapper-route-2" style="margin-bottom: 20px;">
                 <a id="link-route-2" href="#" class="btn-submit-action" style="background: #334155;">Access Consumer Debt Consolidation Module</a>
                 <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px;">Regulatory compliance standards applied | Initial profile review cost-free</span>
+            </div>
+            
+            <div class="constraint-note" style="margin-top: 25px; border-top: 1px dashed #e2e8f0; padding-top: 10px; font-style: normal; color: #64748b;">
+                <strong>Secure Clearing Notice:</strong> Selected modules will directly transfer your verified routing token to the designated regional processing office. No commercial advertising cookies are applied during this administrative transit.
             </div>
         </div>
         
@@ -325,6 +348,12 @@
         document.getElementById('step' + current).classList.remove('active');
         document.getElementById('step' + next).classList.add('active');
         document.getElementById('bar-s' + next).classList.add('active-step');
+    }
+
+    function prevStep(current, prev) {
+        document.getElementById('step' + current).classList.remove('active');
+        document.getElementById('step' + prev).classList.add('active');
+        document.getElementById('bar-s' + current).classList.remove('active-step');
     }
 
     function showLoading() {
