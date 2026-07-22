@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="National Debt Assistance Portal - Get personalized debt relief solutions based on your state and financial situation.">
-    <meta name="robots" content="noindex, nofollow">
     <title>National Debt Assistance Portal</title>
     <style>
         :root { 
@@ -12,9 +10,6 @@
             --secondary-gray: #475569; 
             --border-color: #cbd5e1;
             --interactive-blue: #1e40af;
-            --error-red: #ef4444;
-            --success-green: #166534;
-            --hover-bg: #f1f5f9;
         }
         
         * { box-sizing: border-box; }
@@ -44,12 +39,12 @@
         
         .brand-logo {
             display: block;
-            width: 140px;
-            height: 60px;
-            margin: -15px auto 5px;
+            width: 180px;
+            max-width: 100%;
+            height: auto;
+            margin: -20px auto 10px;
             opacity: 0.95;
             object-fit: contain;
-            object-position: center;
         }
         
         .progress-bar {
@@ -113,13 +108,8 @@
         }
         
         .btn-option:hover { 
-            background: var(--hover-bg); 
+            background: #f1f5f9; 
             border-color: #94a3b8; 
-        }
-
-        .btn-option:focus {
-            outline: 2px solid var(--interactive-blue);
-            outline-offset: 2px;
         }
 
         .select-field {
@@ -136,18 +126,8 @@
             outline: none;
             appearance: none;
             -webkit-appearance: none;
-            cursor: pointer;
         }
         
-        .select-field:focus {
-            outline: 2px solid var(--interactive-blue);
-            outline-offset: 2px;
-        }
-
-        .select-field.error {
-            border-color: var(--error-red);
-        }
-
         .btn-submit-action { 
             display: block; 
             width: 100%; 
@@ -162,39 +142,10 @@
             text-decoration: none; 
             cursor: pointer; 
             margin-bottom: 4px;
-            transition: background 0.15s ease;
         }
         
         .btn-submit-action:hover { 
             background: #1e3a8a; 
-        }
-
-        .btn-submit-action:focus {
-            outline: 2px solid var(--interactive-blue);
-            outline-offset: 2px;
-        }
-        
-        .btn-back-link {
-            display: inline-block;
-            margin-top: 15px;
-            font-size: 0.85rem;
-            color: #94a3b8;
-            text-decoration: underline;
-            cursor: pointer;
-            font-weight: 600;
-            background: none;
-            border: none;
-            padding: 0;
-            transition: color 0.15s ease;
-        }
-        
-        .btn-back-link:hover {
-            color: var(--secondary-gray);
-        }
-
-        .btn-back-link:focus {
-            outline: 2px solid var(--interactive-blue);
-            outline-offset: 2px;
         }
         
         .meta-label { 
@@ -239,7 +190,6 @@
             border-top: 1px solid #f1f5f9;
             padding-top: 15px;
             flex-shrink: 0;
-            font-style: italic;
         }
 
         .security-badge {
@@ -250,56 +200,13 @@
             color: #64748b;
             font-weight: 600;
             letter-spacing: 0.03em;
-            font-style: normal;
-        }
-
-        /* Accessibility: Reduce motion for users who prefer it */
-        @media (prefers-reduced-motion: reduce) {
-            .spinner {
-                animation: none;
-                border-top-color: transparent;
-                border-right-color: var(--interactive-blue);
-            }
-            *, *::before, *::after {
-                transition-duration: 0.01ms !important;
-                animation-duration: 0.01ms !important;
-            }
-        }
-
-        /* No JS fallback */
-        .no-js-message {
-            display: none;
-            background: #fef3c7;
-            border: 1px solid #f59e0b;
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 20px;
-            color: #92400e;
-            font-weight: 600;
-        }
-
-        .no-js .no-js-message {
-            display: block;
-        }
-
-        .no-js .steps-container,
-        .no-js .progress-bar {
-            display: none;
         }
     </style>
 </head>
-<body class="no-js">
-<script>
-    // Enable JS features
-    document.body.classList.remove('no-js');
-</script>
+<body>
 
 <div class="wrapper">
-    <div class="no-js-message">
-        ⚠️ This portal requires JavaScript to function. Please enable JavaScript in your browser settings.
-    </div>
-    
-    <img src="CHP logo no background.png" alt="CHP Media Group" class="brand-logo" width="140" height="60">
+    <img src="CHP logo no background.png" alt="CHP Media Group" class="brand-logo">
 
     <div class="progress-bar">
         <span id="bar-s0" class="step-indicator active-step">1. State Jurisdiction</span>
@@ -314,8 +221,7 @@
             <span class="meta-label">Jurisdiction Code</span>
             <h1>State of Residence Declaration</h1>
             <p>Applicable debt relief regulations and usury boundaries vary by geography. Select your state of domicile to view available resolution strategies:</p>
-            <label for="stateSelect" class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;">Select Your State</label>
-            <select id="stateSelect" class="select-field" aria-required="true">
+            <select id="stateSelect" class="select-field">
                 <option value="" disabled selected>Select Your State...</option>
                 <option value="AL">Alabama</option> <option value="AK">Alaska</option> <option value="AZ">Arizona</option>
                 <option value="AR">Arkansas</option> <option value="CA">California</option> <option value="CO">Colorado</option>
@@ -334,20 +240,19 @@
                 <option value="UT">Utah</option> <option value="VA">Virginia</option> <option value="WA">Washington</option>
                 <option value="WI">Wisconsin</option> <option value="WY">Wyoming</option>
             </select>
-            <button class="btn-submit-action" onclick="validateState()" type="button" aria-label="Submit state selection">Submit Domicile Declaration</button>
-            <div class="constraint-note">* Pre-screening data is processed in strict compliance with standard regional privacy terms.</div>
+            <button class="btn-submit-action" onclick="validateState()">Submit Domicile Declaration</button>
+            <div class="constraint-note">* Pre-screening data is processed in compliance with standard network privacy terms.</div>
         </div>
 
         <div id="step1" class="step">
             <span class="meta-label">Unsecured Debt Schedule</span>
             <h1>Aggregate Outstanding Obligations</h1>
             <p>Select your total unsecured liability balance. This value determines the available underwriting framework for debt restructuring:</p>
-            <button class="btn-option" onclick="setDebtAmount(5000)" type="button" aria-label="Select debt under ten thousand dollars">Under $10,000</button>
-            <button class="btn-option" onclick="setDebtAmount(15000)" type="button" aria-label="Select debt between ten and twenty thousand dollars">$10,000 - $20,000</button>
-            <button class="btn-option" onclick="setDebtAmount(25000)" type="button" aria-label="Select debt over twenty thousand dollars">Over $20,000+</button>
-            <button class="btn-back-link" onclick="prevStep('1', '0')" type="button">← Return to Previous Step</button>
+            <button class="btn-option" onclick="setDebtAmount(5000)">Under $10,000</button>
+            <button class="btn-option" onclick="setDebtAmount(15000)">$10,000 - $20,000</button>
+            <button class="btn-option" onclick="setDebtAmount(25000)">Over $20,000+</button>
             <div class="constraint-note">
-                * Exclusions: Secured obligations, including primary mortgages and auto financing lines, are completely excluded from standard unsecured restructuring frameworks.
+                Exclusions: Secured loans, including residential mortgages and auto financing, are excluded from standard unsecured restructuring programs.
             </div>
         </div>
 
@@ -355,18 +260,17 @@
             <span class="meta-label">Account Standing Code</span>
             <h1>Current Repayment Status</h1>
             <p>Select the status that accurately reflects your ongoing account performance with creditors:</p>
-            <button class="btn-option" onclick="showLoading()" type="button" aria-label="Select accounts sixty plus days past due">Accounts are 60+ days past due or in active collections</button>
-            <button class="btn-option" onclick="showLoading()" type="button" aria-label="Select accounts current but high interest">Accounts are current but high interest impacts debt-to-income ratio</button>
-            <button class="btn-back-link" onclick="prevStep('2', '1')" type="button">← Return to Previous Step</button>
+            <button class="btn-option" onclick="showLoading()">Accounts are 60+ days past due or in active collections</button>
+            <button class="btn-option" onclick="showLoading()">Accounts are current but high interest impacts debt-to-income ratio</button>
             <div class="constraint-note">
-                * Transmission Status: Secure transit pathway active. Profile evaluation does not initiate a credit bureau hard inquiry or modify consumer credit index scores.
+                Secure transmission active. Submission does not initiate a credit bureau hard inquiry.
             </div>
         </div>
 
-        <div id="loadingStep" class="step loading" role="status" aria-live="polite" aria-busy="true">
+        <div id="loadingStep" class="step loading">
             <div class="spinner"></div>
             <h3 style="font-family: Georgia, serif; font-weight: 500; margin-bottom: 8px; color: var(--dark-slate);">Evaluating Profile Parameters...</h3>
-            <p style="margin-bottom: 0; font-size: 0.9rem; font-style: italic; color: #94a3b8;">* Matching user-submitted parameters against active regional underwriting frameworks. Please wait...</p>
+            <p style="margin-bottom: 0; font-size: 0.9rem;">Matching criteria against available regional underwriting options. Please wait...</p>
         </div>
 
         <div id="step3" class="step">
@@ -377,17 +281,13 @@
             <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 20px;">To finalize your documentation review, select one of the verified clearing modules below to link your record:</p>
             
             <div id="wrapper-route-1" style="margin-bottom: 20px;">
-                <a id="link-route-1" href="#" class="btn-submit-action" rel="noopener noreferrer" target="_blank">Access Debt Negotiation Processing Office</a>
-                <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px; font-style: italic;">* Standard verification channel | Secure structural routing</span>
+                <a id="link-route-1" href="#" class="btn-submit-action">Access Debt Negotiation Processing Office</a>
+                <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px;">Standard verification channel | Secure data transmission</span>
             </div>
 
             <div id="wrapper-route-2" style="margin-bottom: 20px;">
-                <a id="link-route-2" href="#" class="btn-submit-action" style="background: #334155;" rel="noopener noreferrer" target="_blank">Access Consumer Debt Consolidation Module</a>
-                <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px; font-style: italic;">* Network compliance rules applied | Initial validation review cost-free</span>
-            </div>
-            
-            <div class="constraint-note" style="margin-top: 25px; border-top: 1px dashed #e2e8f0; padding-top: 10px; color: #64748b;">
-                * Secure Clearing Notice: Selected infrastructure modules will securely transmit your verified structural tokens directly to the designated regional processing units. No commercial advertising cookies or tracking scripts are deployed during this transit event.
+                <a id="link-route-2" href="#" class="btn-submit-action" style="background: #334155;">Access Consumer Debt Consolidation Module</a>
+                <span style="display: block; font-size: 0.75rem; color: #64748b; text-align: left; padding-left: 2px;">Regulatory compliance standards applied | Initial profile review cost-free</span>
             </div>
         </div>
         
@@ -398,145 +298,68 @@
     <div class="security-badge">
         DATA ENCRYPTION ARCHITECTURE (AES-256)
     </div>
-    * Verification Disclosure: This digital interface serves as an independent information analysis and automated routing framework. Final program availability remains strictly subject to verified local state jurisdictions, individual underwriter approval thresholds, and the established guidelines of participating independent clearing networks.
+    This interface serves as an independent consumer information and referral hub. Program availability is subject to local state laws, individual client eligibility, and the guidelines of participating independent resolution groups.
 </div>
 
 <script>
-    (function() {
-        'use strict';
+    var selectedState = "";
+    var debtAmount = 0;
+
+    function validateState() {
+        var stateSelect = document.getElementById('stateSelect');
+        selectedState = stateSelect.value;
+        if(selectedState === "") {
+            stateSelect.style.borderColor = "#ef4444";
+            return;
+        }
+        stateSelect.style.borderColor = "var(--border-color)";
+        nextStep('0', '1');
+    }
+
+    function setDebtAmount(amount) {
+        debtAmount = amount;
+        nextStep('1', '2');
+    }
+
+    function nextStep(current, next) {
+        document.getElementById('step' + current).classList.remove('active');
+        document.getElementById('step' + next).classList.add('active');
+        document.getElementById('bar-s' + next).classList.add('active-step');
+    }
+
+    function showLoading() {
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('loadingStep').classList.add('active');
         
-        var selectedState = "";
-        var debtAmount = 0;
-        var loadingComplete = false;
-
-        function validateState() {
-            var stateSelect = document.getElementById('stateSelect');
-            selectedState = stateSelect.value;
+        if(selectedState !== "") {
+            var route1 = document.getElementById('link-route-1');
+            var route2 = document.getElementById('link-route-2');
+            var wrap1 = document.getElementById('wrapper-route-1');
+            var wrap2 = document.getElementById('wrapper-route-2');
             
-            if(selectedState === "") {
-                stateSelect.classList.add('error');
-                stateSelect.setAttribute('aria-invalid', 'true');
-                stateSelect.focus();
-                return;
+            var curadebtRestricted = ["CT", "GA", "IL", "KS", "ME", "NH", "NV", "SC"];
+            
+            var curadebtLink = "YOUR_CURADEBT_AWIN_LINK" + "&sub2=" + selectedState;
+            var ndrLink = "YOUR_NATIONAL_DEBT_RELIEF_LINK" + "&sub2=" + selectedState;
+            
+            route1.href = curadebtLink;
+            route2.href = ndrLink;
+            
+            if (curadebtRestricted.indexOf(selectedState) !== -1) {
+                wrap1.style.display = "none";
+            } else {
+                wrap1.style.display = "block";
             }
             
-            stateSelect.classList.remove('error');
-            stateSelect.removeAttribute('aria-invalid');
-            nextStep('0', '1');
+            document.getElementById('dynamic-state-badge').textContent = "Profile Match Secured (ID: #" + selectedState + "-2026)";
         }
-
-        function setDebtAmount(amount) {
-            debtAmount = amount;
-            nextStep('1', '2');
-        }
-
-        function nextStep(current, next) {
-            var currentStep = document.getElementById('step' + current);
-            var nextStepEl = document.getElementById('step' + next);
-            var nextBar = document.getElementById('bar-s' + next);
-            
-            if (currentStep && nextStepEl) {
-                currentStep.classList.remove('active');
-                nextStepEl.classList.add('active');
-            }
-            
-            if (nextBar) {
-                nextBar.classList.add('active-step');
-            }
-        }
-
-        function prevStep(current, prev) {
-            var currentStep = document.getElementById('step' + current);
-            var prevStepEl = document.getElementById('step' + prev);
-            var currentBar = document.getElementById('bar-s' + current);
-            
-            if (currentStep && prevStepEl) {
-                currentStep.classList.remove('active');
-                prevStepEl.classList.add('active');
-            }
-            
-            if (currentBar) {
-                currentBar.classList.remove('active-step');
-            }
-        }
-
-        function showLoading() {
-            if (loadingComplete) return;
-            loadingComplete = true;
-            
-            var step2 = document.getElementById('step2');
-            var loadingStep = document.getElementById('loadingStep');
-            
-            if (step2 && loadingStep) {
-                step2.classList.remove('active');
-                loadingStep.classList.add('active');
-            }
-
-            if(selectedState !== "") {
-                var route1 = document.getElementById('link-route-1');
-                var route2 = document.getElementById('link-route-2');
-                var wrap1 = document.getElementById('wrapper-route-1');
-                
-                // Restricted states for Curadebt offer
-                var curadebtRestricted = ["CT", "GA", "IL", "KS", "ME", "NH", "NV", "SC"];
-                
-                // IMPORTANT: Replace these placeholder URLs with your actual affiliate links
-                // These should be configured via environment variables or a config file in production
-                var curadebtLink = "YOUR_CURADEBT_AWIN_LINK" + "&sub2=" + encodeURIComponent(selectedState);
-                var ndrLink = "YOUR_NATIONAL_DEBT_RELIEF_LINK" + "&sub2=" + encodeURIComponent(selectedState);
-
-                if (route1) route1.href = curadebtLink;
-                if (route2) route2.href = ndrLink;
-
-                if (wrap1) {
-                    if (curadebtRestricted.indexOf(selectedState) !== -1) {
-                        wrap1.style.display = "none";
-                    } else {
-                        wrap1.style.display = "block";
-                    }
-                }
-
-                var badge = document.getElementById('dynamic-state-badge');
-                if (badge) {
-                    badge.textContent = "Profile Match Secured (ID: #" + selectedState + "-2026)";
-                }
-            }
-
-            setTimeout(function() {
-                var loadingStepEl = document.getElementById('loadingStep');
-                var step3 = document.getElementById('step3');
-                var bar3 = document.getElementById('bar-s3');
-                
-                if (loadingStepEl && step3) {
-                    loadingStepEl.classList.remove('active');
-                    step3.classList.add('active');
-                }
-                
-                if (bar3) {
-                    bar3.classList.add('active-step');
-                }
-                
-                // Focus on first link for accessibility
-                var firstLink = document.getElementById('link-route-1') || document.getElementById('link-route-2');
-                if (firstLink && firstLink.href !== window.location.href.split('#')[0] + '#') {
-                    firstLink.focus();
-                }
-            }, 2200);
-        }
-
-        // Keyboard navigation support for select field
-        document.addEventListener('DOMContentLoaded', function() {
-            var stateSelect = document.getElementById('stateSelect');
-            if (stateSelect) {
-                stateSelect.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        validateState();
-                    }
-                });
-            }
-        });
-    })();
+        
+        setTimeout(function() {
+            document.getElementById('loadingStep').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+            document.getElementById('bar-s3').classList.add('active-step');
+        }, 2200);
+    }
 </script>
 
 </body>
