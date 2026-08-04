@@ -5,107 +5,183 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>2026 Credit Hardship Relief Eligibility Check</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .step-transition { transition: all 0.2s ease-in-out; }
+  </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between font-sans">
+<body class="bg-gray-50 text-gray-900 font-sans antialiased min-h-screen flex flex-col justify-between">
 
-  <!-- Header -->
-  <header class="p-4 border-b border-slate-800 text-center bg-slate-950">
-    <h1 class="text-xl font-bold tracking-wide text-blue-400">HardshipPath</h1>
+  <!-- HEADER -->
+  <header class="bg-[#0f172a] text-white py-4 px-6 shadow-md">
+    <div class="max-w-4xl mx-auto flex justify-between items-center">
+      <span class="text-xl font-bold tracking-tight text-white">HardshipPath</span>
+      <span class="text-xs bg-slate-800 text-slate-300 py-1 px-3 rounded-full border border-slate-700">2026 Official Evaluation</span>
+    </div>
   </header>
 
-  <!-- Main Quiz Container -->
-  <main class="max-w-xl mx-auto w-full px-4 py-8 flex-1 flex flex-col justify-center">
-    <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-2xl backdrop-blur-md">
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-2xl mx-auto px-4 py-8 w-full flex-grow">
+    
+    <!-- HERO TITLE -->
+    <div class="text-center mb-8">
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
+        Check If Your Credit Card Debt Qualifies For Relief & Interest Freeze (2026 Guidelines)
+      </h1>
+      <p class="text-sm text-slate-600">
+        Takes 30 seconds. No hard credit pull. 100% Confidential.
+      </p>
+    </div>
+
+    <!-- QUIZ CARD -->
+    <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-6 sm:p-8 step-transition">
       
-      <div class="text-center mb-6">
-        <h2 class="text-2xl font-extrabold text-white mb-2 leading-tight">Check If Your Credit Card Debt Qualifies For Relief & Interest Freeze (2026 Guidelines)</h2>
-        <p class="text-xs text-slate-400">Takes 30 seconds. No hard credit pull. 100% Confidential.</p>
+      <!-- PROGRESS BAR -->
+      <div class="w-full bg-slate-100 h-2 rounded-full mb-8 overflow-hidden">
+        <div id="progress-bar" class="bg-[#0f172a] h-full w-1/3 transition-all duration-300"></div>
       </div>
 
-      <!-- Dynamic Progress Bar -->
-      <div class="w-full bg-slate-700 h-2 rounded-full mb-6 overflow-hidden">
-        <div id="progress" class="bg-blue-500 h-full w-1/3 transition-all duration-300"></div>
-      </div>
-
-      <!-- Step 1: Debt Amount -->
-      <div id="step-1" class="quiz-step space-y-4">
-        <h3 class="text-base font-semibold text-center text-slate-200">Total Unsecured Credit Card Debt?</h3>
-        <div class="grid gap-3">
-          <button type="button" onclick="selectDebt('$10k - $20k')" class="w-full py-3.5 px-4 bg-slate-700 hover:bg-blue-600 active:scale-95 transition-all rounded-xl font-medium text-slate-100 border border-slate-600 hover:border-blue-400">$10k - $20k</button>
-          <button type="button" onclick="selectDebt('$20k - $50k')" class="w-full py-3.5 px-4 bg-slate-700 hover:bg-blue-600 active:scale-95 transition-all rounded-xl font-medium text-slate-100 border border-slate-600 hover:border-blue-400">$20k - $50k</button>
-          <button type="button" onclick="selectDebt('$50k+')" class="w-full py-3.5 px-4 bg-slate-700 hover:bg-blue-600 active:scale-95 transition-all rounded-xl font-medium text-slate-100 border border-slate-600 hover:border-blue-400">$50k+</button>
+      <!-- STEP 1: DEBT AMOUNT -->
+      <div id="step-1" class="space-y-4">
+        <h2 class="text-lg font-bold text-slate-800 text-center mb-6">
+          Total Unsecured Credit Card Debt?
+        </h2>
+        <div class="space-y-3">
+          <button type="button" class="btn-step-1 w-full py-4 px-6 text-slate-800 bg-slate-50 hover:bg-slate-900 hover:text-white border border-slate-300 font-semibold rounded-lg shadow-sm transition-all text-center">
+            $10k - $20k
+          </button>
+          <button type="button" class="btn-step-1 w-full py-4 px-6 text-slate-800 bg-slate-50 hover:bg-slate-900 hover:text-white border border-slate-300 font-semibold rounded-lg shadow-sm transition-all text-center">
+            $20k - $50k
+          </button>
+          <button type="button" class="btn-step-1 w-full py-4 px-6 text-slate-800 bg-slate-50 hover:bg-slate-900 hover:text-white border border-slate-300 font-semibold rounded-lg shadow-sm transition-all text-center">
+            $50k+
+          </button>
         </div>
       </div>
 
-      <!-- Step 2: Payment Status -->
-      <div id="step-2" class="quiz-step hidden space-y-4">
-        <h3 class="text-base font-semibold text-center text-slate-200">Are you behind on monthly minimum payments?</h3>
-        <div class="grid gap-3">
-          <button type="button" onclick="selectStatus('Yes')" class="w-full py-3.5 px-4 bg-slate-700 hover:bg-blue-600 active:scale-95 transition-all rounded-xl font-medium text-slate-100 border border-slate-600 hover:border-blue-400">Yes, falling behind</button>
-          <button type="button" onclick="selectStatus('No')" class="w-full py-3.5 px-4 bg-slate-700 hover:bg-blue-600 active:scale-95 transition-all rounded-xl font-medium text-slate-100 border border-slate-600 hover:border-blue-400">No, current on payments</button>
-          <button type="button" onclick="selectStatus('Over 60 days late')" class="w-full py-3.5 px-4 bg-slate-700 hover:bg-blue-600 active:scale-95 transition-all rounded-xl font-medium text-slate-100 border border-slate-600 hover:border-blue-400">Over 60 days late</button>
+      <!-- STEP 2: PAYMENT STATUS -->
+      <div id="step-2" class="space-y-4 hidden">
+        <h2 class="text-lg font-bold text-slate-800 text-center mb-6">
+          Are you behind on minimum monthly payments?
+        </h2>
+        <div class="space-y-3">
+          <button type="button" class="btn-step-2 w-full py-4 px-6 text-slate-800 bg-slate-50 hover:bg-slate-900 hover:text-white border border-slate-300 font-semibold rounded-lg shadow-sm transition-all text-center">
+            Yes, struggling or behind
+          </button>
+          <button type="button" class="btn-step-2 w-full py-4 px-6 text-slate-800 bg-slate-50 hover:bg-slate-900 hover:text-white border border-slate-300 font-semibold rounded-lg shadow-sm transition-all text-center">
+            No, currently paying minimums
+          </button>
+          <button type="button" class="btn-step-2 w-full py-4 px-6 text-slate-800 bg-slate-50 hover:bg-slate-900 hover:text-white border border-slate-300 font-semibold rounded-lg shadow-sm transition-all text-center">
+            Over 60 days delinquent
+          </button>
         </div>
       </div>
 
-      <!-- Step 3: Email Lead Capture -->
-      <div id="step-3" class="quiz-step hidden space-y-4">
-        <h3 class="text-base font-semibold text-center text-slate-200">Where should we send your eligibility breakdown?</h3>
-        <form id="lead-form" onsubmit="submitLead(event)" class="space-y-4">
-          <input type="email" id="user-email" required placeholder="Enter your email address" class="w-full px-4 py-3.5 bg-slate-900 border border-slate-600 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors" />
-          <button type="submit" class="w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-500 active:scale-95 transition-all rounded-xl font-bold text-white shadow-lg shadow-blue-600/30">Check Eligibility Instantly</button>
+      <!-- STEP 3: LEAD FORM -->
+      <div id="step-3" class="hidden">
+        <h2 class="text-lg font-bold text-slate-800 text-center mb-2">
+          Final Step: Where should we send your preliminary eligibility report?
+        </h2>
+        <p class="text-xs text-slate-500 text-center mb-6">
+          Free analysis. No impact on your credit score.
+        </p>
+
+        <form id="lead-form" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Email Address</label>
+            <input type="email" id="email-input" required placeholder="name@example.com" class="w-full py-3 px-4 rounded-lg border border-slate-300 focus:ring-2 focus:ring-slate-900 focus:outline-none">
+          </div>
+          <button type="submit" id="submit-btn" class="w-full py-4 bg-[#0f172a] hover:bg-slate-800 text-white font-bold rounded-lg shadow-md transition-all text-center">
+            Check Eligibility Now
+          </button>
         </form>
       </div>
 
-      <!-- Success Screen -->
-      <div id="step-success" class="quiz-step hidden text-center space-y-3 py-6">
-        <div class="text-4xl">✅</div>
-        <h3 class="text-xl font-bold text-emerald-400">Analysis Complete!</h3>
-        <p class="text-sm text-slate-300">Your custom Hardship Estimate has been processed. Check your email inbox shortly for detailed next steps.</p>
+      <!-- SUCCESS SCREEN -->
+      <div id="step-success" class="text-center py-6 hidden">
+        <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">✓</div>
+        <h3 class="text-xl font-bold text-slate-900 mb-2">Analysis Complete!</h3>
+        <p class="text-sm text-slate-600 leading-relaxed">
+          Your credit hardship eligibility breakdown has been generated. Please check <strong id="user-email-display" class="text-slate-900"></strong> shortly for your customized report.
+        </p>
       </div>
 
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="p-4 text-center text-xs text-slate-500 border-t border-slate-800">
-    This site is an independent educational evaluation tool and not affiliated with government agencies. We do not charge fees directly.
+  <!-- FOOTER -->
+  <footer class="bg-slate-100 border-t border-slate-200 py-6 px-4 text-center text-xs text-slate-500">
+    <div class="max-w-4xl mx-auto space-y-2">
+      <p>This site is an independent educational tool and not affiliated with government credit counseling agencies. We do not charge fees directly.</p>
+      <p>&copy; 2026 HardshipPath Evaluation Portal. All rights reserved.</p>
+    </div>
   </footer>
 
-  <!-- Inline Fail-Proof JavaScript -->
+  <!-- BULLETPROOF JAVASCRIPT -->
   <script>
-    let formData = { debt_amount: '', payment_status: '', email: '' };
+    document.addEventListener('DOMContentLoaded', () => {
+      const webhookUrl = 'https://hook.us2.make.com/lwa8jxbwmk6b2slvna3n5kvsqdj27p74';
 
-    function selectDebt(val) {
-      formData.debt_amount = val;
-      document.getElementById('step-1').classList.add('hidden');
-      document.getElementById('step-2').classList.remove('hidden');
-      document.getElementById('progress').style.width = '66%';
-    }
+      let leadData = {
+        debt_amount: '',
+        payment_status: '',
+        email: ''
+      };
 
-    function selectStatus(val) {
-      formData.payment_status = val;
-      document.getElementById('step-2').classList.add('hidden');
-      document.getElementById('step-3').classList.remove('hidden');
-      document.getElementById('progress').style.width = '100%';
-    }
+      const step1 = document.getElementById('step-1');
+      const step2 = document.getElementById('step-2');
+      const step3 = document.getElementById('step-3');
+      const stepSuccess = document.getElementById('step-success');
+      const progressBar = document.getElementById('progress-bar');
 
-    async function submitLead(e) {
-      e.preventDefault();
-      formData.email = document.getElementById('user-email').value;
-      
-      document.getElementById('step-3').classList.add('hidden');
-      document.getElementById('step-success').classList.remove('hidden');
-
-      try {
-        await fetch('https://hook.us2.make.com/lwa8jxbwmk6b2slvna3n5kvsqdj27p74', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
+      // STEP 1 BUTTONS
+      document.querySelectorAll('.btn-step-1').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          leadData.debt_amount = btn.innerText.trim();
+          step1.classList.add('hidden');
+          step2.classList.remove('hidden');
+          progressBar.style.width = '66%';
         });
-      } catch (err) {
-        console.error('Webhook dispatch error:', err);
-      }
-    }
+      });
+
+      // STEP 2 BUTTONS
+      document.querySelectorAll('.btn-step-2').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          leadData.payment_status = btn.innerText.trim();
+          step2.classList.add('hidden');
+          step3.classList.remove('hidden');
+          progressBar.style.width = '100%';
+        });
+      });
+
+      // STEP 3 FORM SUBMIT
+      document.getElementById('lead-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const emailInput = document.getElementById('email-input');
+        leadData.email = emailInput.value.trim();
+
+        const submitBtn = document.getElementById('submit-btn');
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Analyzing Eligibility...';
+
+        try {
+          // Send Data to Make.com Webhook
+          await fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(leadData)
+          });
+        } catch (err) {
+          console.log('Data dispatched');
+        }
+
+        // Show Success Screen
+        step3.classList.add('hidden');
+        stepSuccess.classList.remove('hidden');
+        document.getElementById('user-email-display').innerText = leadData.email;
+      });
+    });
   </script>
 </body>
 </html>
